@@ -1,36 +1,27 @@
-using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Integration.AspNet.Core;
-using Microsoft.Bot.Connector.Authentication;
-using TeamsBotTemplate;
+using Microsoft.Teams.Api.Activities;
+using Microsoft.Teams.Apps.Activities;
+using Microsoft.Teams.Plugins.AspNetCore.Extensions;
+
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddHttpClient();
-
-// Create the Bot Framework Authentication to be used with the Bot Adapter.
-builder.Services.AddSingleton<BotFrameworkAuthentication, ConfigurationBotFrameworkAuthentication>();
-
-// Create the Bot Adapter with error handling enabled.
-builder.Services.AddSingleton<IBotFrameworkHttpAdapter, AdapterWithErrorHandler>();
-
-// Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
-builder.Services.AddTransient<IBot, TeamsBot>();
-
+builder.AddTeams();
 var app = builder.Build();
+var teamsApp = app.UseTeams();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+teamsApp.OnConversationUpdate(async context =>
 {
-    app.UseDeveloperExceptionPage();
-}
+    ConversationUpdateActivity cua = context.Activity;
 
-app.UseHttpsRedirection();
-app.UseDefaultFiles();
-app.UseStaticFiles();
-app.UseRouting();
-app.UseAuthorization();
-app.MapControllers();
+    string result = $"Conversation ID {cua.Conversation.Id} Members Added Count: {cua.MembersAdded.Length}, Members Removed Count {cua.MembersRemoved.Length}";
+
+    await context.Send(result);
+    await context.Reply("Welcome to Quote Agent!");
+
+});
+
+teamsApp.OnMessage(context =>
+{
+    return context.Reply("you said: " + context.Activity.Text);
+});
 
 app.Run();
