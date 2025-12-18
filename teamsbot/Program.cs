@@ -1,27 +1,8 @@
-using Microsoft.Teams.Api.Activities;
-using Microsoft.Teams.Apps.Activities;
-using Microsoft.Teams.Plugins.AspNetCore.Extensions;
+using Microsoft.Teams.BotApps;
 
+var teamsApp = TeamsBotApplication.CreateBuilder().Build();
 
-var builder = WebApplication.CreateBuilder(args);
-builder.AddTeams();
-var app = builder.Build();
-var teamsApp = app.UseTeams();
+teamsApp.OnMessage = (context, cancellationToken) =>
+    context.SendActivityAsync("Hello! How can I assist you today?", cancellationToken);
 
-teamsApp.OnConversationUpdate(async context =>
-{
-    ConversationUpdateActivity cua = context.Activity;
-
-    string result = $"Conversation ID {cua.Conversation.Id} Members Added Count: {cua.MembersAdded.Length}, Members Removed Count {cua.MembersRemoved.Length}";
-
-    await context.Send(result);
-    await context.Reply("Welcome to Quote Agent!");
-
-});
-
-teamsApp.OnMessage(context =>
-{
-    return context.Reply("you said: " + context.Activity.Text);
-});
-
-app.Run();
+teamsApp.Run();
