@@ -7,7 +7,7 @@ A dotnet new template for creating Microsoft Teams bots using the Bot Framework 
 Install the template from the local directory:
 
 ```bash
-dotnet new install Rido.TeamsBot.Template.nupkg
+dotnet new install Microsoft.TeamsBot.Template.nupkg
 ```
 
 Or install from a NuGet package (once published):

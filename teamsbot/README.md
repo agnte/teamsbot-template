@@ -4,12 +4,23 @@
 
 Before running the bot, configure your Bot Framework credentials in `appsettings.json`:
 
+you can use the script in `tools/get-profile.ps1` (need to be logged with az cli, and provide the AppId for the Bot)
+
 ```json
 {
-  "Teams" : {
-    "ClientId": "",
-    "TenantId": "",
-    "ClientSecret": ""
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "<Bot_DisplayName>": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CLIENT_ID": "",
+        "TENANT_ID": "",
+        "CLIENT_SECRET": ""
+      },
+      "applicationUrl": "http://localhost:3978"
+    }
   }
 }
 ```
