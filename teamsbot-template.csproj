@@ -3,9 +3,9 @@
   <PropertyGroup>
     <PackageType>Template</PackageType>
     <PackageVersion>0.1</PackageVersion>
-    <PackageId>Rido.TeamsBot.Template</PackageId>
+    <PackageId>Microsoft.TeamsBot.Template</PackageId>
     <Title>TeamsBot</Title>
-    <Authors>agnte</Authors>
+    <Authors>Microsoft</Authors>
     <Description>Project template to create TeamsBot apps</Description>
     <PackageTags>teams;bot</PackageTags>
 
@@ -17,8 +17,8 @@
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
 
-    <Copyright>copyleft</Copyright>
-		<PackageProjectUrl>https://github.com/agnte/teamsbot-template</PackageProjectUrl>
+    <Copyright>Microsoft</Copyright>
+		<PackageProjectUrl>https://github.com/microsoft/teams.net</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
